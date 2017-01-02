@@ -1,0 +1,32 @@
+<?php
+$dir ='clouds/'.$log.'/';
+    $files = scandir($dir);
+    $files_n = count($files);
+
+    
+    $i=0;
+    while($i<=$files_n){
+        // "is_dir" only works from top directory, so append the $dir before the file
+        if (is_dir($dir.'/'.$files[$i])){   
+            $MyFileType[$i] = "D" ; // D for Directory
+        } else{
+            $MyFileType[$i] = "F" ; // F for File
+        }
+        // print itemNo, itemType(D/F) and itemname
+        // define some variables
+$local_file = 'local.zip';
+
+
+
+
+$ftp_server = "serwer1638898.home.pl";
+$ftp_conn = ftp_connect($ftp_server) or die("Could not connect to $ftp_server");
+$ftp_username = "chwiledwie@chwiledwie.pl";
+$ftp_userpass = "Discovery76";
+$login_result2 = ftp_login($ftp_conn, $ftp_username, $ftp_userpass);
+        echo '<br>'.$i.'. '. $MyFileType[$i].'. <a href="'.ftp_get($ftp_conn, $local_file, $files[$i], FTP_BINARY).'">'.$files[$i].'</a>' ;
+        $i++;
+    }
+
+
+?>

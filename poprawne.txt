@@ -1,0 +1,15 @@
+$myip = $_SERVER["REMOTE_ADDR"];
+        
+         $q = "INSERT INTO logi (idl,IP,liczbaprob,poprawnelog) VALUES ('','$myip','$proby','TAK') ;";
+     $result = mysql_query($q)or die('Blad: '.mysql_error()); 
+     
+     $q = "SELECT datagodzina FROM logi WHERE IP='$myip' AND poprawnelog='NIE';";
+     $result = mysql_query($q)or die('Blad: '.mysql_error());
+     
+      echo '<p>Ostatnie bledne logowanie: '.$result[0].'</p>';
+     
+     
+     $proby=0;
+     
+      $q = "UPDATE logi SET liczbaprob='$proby', datagodzina=NOW() WHERE IP = '$myip' AND poprawnelog = 'NIE';";
+       $result = mysql_query($q)or die('Blad: '.mysql_error());
